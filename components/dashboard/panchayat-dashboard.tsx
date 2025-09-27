@@ -32,9 +32,10 @@ import { mockLandParcels, mockProposals, type LandParcel } from "@/lib/mock-data
 interface PanchayatDashboardProps {
   user: User
   onLogout: () => void
+  currentTab?: string
 }
 
-export function PanchayatDashboard({ user, onLogout }: PanchayatDashboardProps) {
+export function PanchayatDashboard({ user, onLogout, currentTab = "map" }: PanchayatDashboardProps) {
   const [activeTab, setActiveTab] = useState("overview")
   const [showAddParcelDialog, setShowAddParcelDialog] = useState(false)
   const [showParcelDetailsDialog, setShowParcelDetailsDialog] = useState(false)

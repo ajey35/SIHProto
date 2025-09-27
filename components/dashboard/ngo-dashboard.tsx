@@ -21,9 +21,10 @@ import { useToast } from "@/hooks/use-toast"
 interface NGODashboardProps {
   user: User
   onLogout: () => void
+  currentTab?: string
 }
 
-export function NGODashboard({ user, onLogout }: NGODashboardProps) {
+export function NGODashboard({ user, onLogout, currentTab = "map" }: NGODashboardProps) {
   const [activeTab, setActiveTab] = useState("overview")
   const [selectedParcel, setSelectedParcel] = useState<LandParcel | null>(null)
   const [showProposalDialog, setShowProposalDialog] = useState(false)
@@ -91,27 +92,6 @@ export function NGODashboard({ user, onLogout }: NGODashboardProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-40">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-primary">NGO Dashboard</h1>
-              <p className="text-sm sm:text-base text-muted-foreground">{user.organization}</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="text-right hidden sm:block">
-                <p className="font-medium text-sm">{user.name}</p>
-                <p className="text-xs text-muted-foreground">{user.email}</p>
-              </div>
-              <Button variant="outline" size="sm" onClick={onLogout}>
-                <LogOut className="h-4 w-4 mr-2" />
-                <span className="hidden sm:inline">Logout</span>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
-
       <div className="container mx-auto px-4 py-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <div className="overflow-x-auto">

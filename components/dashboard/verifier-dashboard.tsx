@@ -31,6 +31,7 @@ import {
 interface VerifierDashboardProps {
   user: User
   onLogout: () => void
+  currentTab?: string
 }
 
 interface VerificationTask {
@@ -93,7 +94,7 @@ const mockVerificationTasks: VerificationTask[] = [
   },
 ]
 
-export function VerifierDashboard({ user, onLogout }: VerifierDashboardProps) {
+export function VerifierDashboard({ user, onLogout, currentTab = "map" }: VerifierDashboardProps) {
   const [activeTab, setActiveTab] = useState("queue")
   const [selectedTask, setSelectedTask] = useState<VerificationTask | null>(null)
   const [showVerificationDialog, setShowVerificationDialog] = useState(false)

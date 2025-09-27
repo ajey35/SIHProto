@@ -33,6 +33,7 @@ import { mockCarbonCredits, type CarbonCredit } from "@/lib/mock-data"
 interface BuyerDashboardProps {
   user: User
   onLogout: () => void
+  currentTab?: string
 }
 
 interface ExtendedCarbonCredit extends CarbonCredit {
@@ -89,7 +90,7 @@ const mockMarketplaceCredits: ExtendedCarbonCredit[] = [
   },
 ]
 
-export function BuyerDashboard({ user, onLogout }: BuyerDashboardProps) {
+export function BuyerDashboard({ user, onLogout, currentTab = "map" }: BuyerDashboardProps) {
   const [activeTab, setActiveTab] = useState("marketplace")
   const [selectedCredit, setSelectedCredit] = useState<ExtendedCarbonCredit | null>(null)
   const [showPurchaseDialog, setShowPurchaseDialog] = useState(false)

@@ -81,7 +81,9 @@ export const authService = {
     const user = mockUsers.find((u) => u.email === email)
     if (user && password === "password123") {
       currentUser = user
-      localStorage.setItem("currentUser", JSON.stringify(user))
+      if (typeof window !== "undefined") {
+        localStorage.setItem("currentUser", JSON.stringify(user))
+      }
       return user
     }
     return null
@@ -89,16 +91,25 @@ export const authService = {
 
   logout: async (): Promise<void> => {
     currentUser = null
-    localStorage.removeItem("currentUser")
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("currentUser")
+    }
   },
 
   getCurrentUser: (): User | null => {
     if (currentUser) return currentUser
 
-    const stored = localStorage.getItem("currentUser")
-    if (stored) {
-      currentUser = JSON.parse(stored)
-      return currentUser
+    // Check if we're in a browser environment
+    if (typeof window === "undefined") return null
+
+    try {
+      const stored = localStorage.getItem("currentUser")
+      if (stored) {
+        currentUser = JSON.parse(stored)
+        return currentUser
+      }
+    } catch (error) {
+      console.error("Error reading from localStorage:", error)
     }
     return null
   },

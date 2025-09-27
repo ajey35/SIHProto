@@ -47,9 +47,10 @@ import { toast } from "@/hooks/use-toast"
 interface NCCRAdminDashboardProps {
   user: User
   onLogout: () => void
+  currentTab?: string
 }
 
-export function NCCRAdminDashboard({ user, onLogout }: NCCRAdminDashboardProps) {
+export function NCCRAdminDashboard({ user, onLogout, currentTab = "map" }: NCCRAdminDashboardProps) {
   const [selectedEcosystem, setSelectedEcosystem] = useState<(typeof blueEcosystems)[0] | null>(null)
   const [selectedProposal, setSelectedProposal] = useState<(typeof mockProposals)[0] | null>(null)
   const [issuanceDialog, setIssuanceDialog] = useState(false)
@@ -131,27 +132,6 @@ export function NCCRAdminDashboard({ user, onLogout }: NCCRAdminDashboardProps) 
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-primary">NCCR Admin Dashboard</h1>
-              <p className="text-sm sm:text-base text-muted-foreground">National Centre for Coastal Research</p>
-            </div>
-            <div className="flex items-center gap-4 w-full sm:w-auto">
-              <div className="text-right flex-1 sm:flex-none">
-                <p className="font-medium text-sm sm:text-base">{user.name}</p>
-                <p className="text-xs sm:text-sm text-muted-foreground">{user.email}</p>
-              </div>
-              <Button variant="outline" onClick={onLogout} size="sm">
-                <LogOut className="h-4 w-4 mr-2" />
-                <span className="hidden sm:inline">Logout</span>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
-
       <div className="container mx-auto px-4 py-6">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-8 gap-3 sm:gap-4 mb-6">
           <Card className="animate-fade-in">
@@ -251,7 +231,7 @@ export function NCCRAdminDashboard({ user, onLogout }: NCCRAdminDashboardProps) 
           </Card>
         </div>
 
-        <Tabs defaultValue="map" className="space-y-6">
+        <Tabs value={currentTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 h-auto p-1">
             <TabsTrigger value="map" className="text-xs sm:text-sm px-2 py-2">
               <MapPin className="h-4 w-4 sm:mr-2" />
